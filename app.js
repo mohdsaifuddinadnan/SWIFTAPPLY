@@ -153,13 +153,13 @@ app.post('/apply-jobs', async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'your-email@gmail.com',
-        pass: 'your-email-password'
+        user: 'su5457925@gmail.com',
+        pass: 'awuh ulhq dgse cyhw'
       }
     });
 
     const mailOptions = {
-      from: 'your-email@gmail.com',
+      from: 'su5457925@gmail.com',
       to: email,
       subject: 'Jobs Applied/Interested In',
       text: `Here are the jobs you applied for or saved:\n\n` +
