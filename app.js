@@ -45,12 +45,10 @@ app.post('/apply-jobs', async (req, res) => {
     await page.click('.nI-gNb-sb__full-view');
     await page.screenshot({ path: path.join(screenshotsDir, 'search-bar-page.png') });
 
-    // Check which fields are available based on the current account's UI
     const hasJobTypeInput = await page.$('input[name="jobType"]') !== null;
     const hasExperienceInput = await page.$('input[name="experienceDD"]') !== null;
 
     if (hasJobTypeInput) {
-      // Handling jobType field
       await page.type('.nI-gNb-sb__keywords input', jobTitle, { delay: 100 });
       await page.click('input[name="jobType"]');
       await page.waitForSelector('#sa-dd-scrolljobType', { timeout: 10000 });
@@ -68,7 +66,6 @@ app.post('/apply-jobs', async (req, res) => {
       }, jobType);
 
     } else if (hasExperienceInput) {
-      // Handling experience field
       await page.type('.nI-gNb-sb__keywords input', jobTitle, { delay: 100 });
       await page.click('input[name="experienceDD"]');
       await page.waitForSelector('ul.dropdown', { timeout: 10000 });
@@ -88,13 +85,10 @@ app.post('/apply-jobs', async (req, res) => {
       res.json({ success: false, error: "Required fields are not available." });
       return;
     }
-
-    // Continue with the location input
     await page.type('.nI-gNb-sb__locations input', location, { delay: 100 });
     await page.click('.nI-gNb-sb__icon-wrapper');
     await page.waitForNavigation({ waitUntil: 'networkidle2' });
 
-    // ... rest of your job application logic ...
     await page.waitForSelector('.styles_jlc__main__VdwtF', { timeout: 10000 });
 
     const jobTitles = await page.evaluate(() => {
@@ -148,7 +142,6 @@ app.post('/apply-jobs', async (req, res) => {
     }
 
     await browser.close();
-    // Email sending logic ...
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
